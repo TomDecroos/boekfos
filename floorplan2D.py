@@ -228,11 +228,11 @@ class Wall(Collection):
         self.add(door)
 
 class InnerWall(Wall):
-    color = "white"
+    color = "darkgrey"
     width = 0.10
 
 class OuterWall(Wall):
-    color="white"
+    color="darkgrey"
     width=0.40
 
 class Window:
