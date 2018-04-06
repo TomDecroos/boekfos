@@ -224,8 +224,11 @@ class Wall(Collection):
                 door = Door(x,y,degrees2,
                         degrees1,doorwidth)
         
-        self.add(itcopy)
-        self.add(door)
+                self.add(itcopy)
+                self.add(door)
+                return
+
+        raise Exception("Could not fit door: " + str(b) + " " + str(otherb))
 
 class InnerWall(Wall):
     color = "darkgrey"
