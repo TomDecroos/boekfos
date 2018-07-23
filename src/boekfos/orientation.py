@@ -7,6 +7,9 @@ class Orientation(Enum):
     VERTICAL = auto()
 
     def box(self, a1, b1, a2, b2):
+        assert(a1 <= a2)
+        assert(b1 <= b2)
+
         if self == Orientation.VERTICAL:
             left = a1
             bottom = b1
@@ -58,7 +61,7 @@ class Side(Enum):
         if self in [Side.LEFT, Side.BOTTOM]:
             return x - dx
         else:
-            return x
+            return x + dx
 
     def a(self, box):
         if self == Side.LEFT:

@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 class Element(ABC):
     def __init__(self):
         self._hide = False
+        self._level = 10
 
     @abstractmethod
     def boundingbox():
@@ -17,11 +18,16 @@ class Element(ABC):
         pass
 
     @abstractmethod
+    def setlevel():
+        pass
+
+    @abstractmethod
     def draw():
         pass
 
-    def hide(self):
-        self._hide = True
+    @abstractmethod
+    def hide():
+        pass
 
     def hidden(self):
         return self._hide
@@ -38,9 +44,17 @@ class BaseElement(Element, ABC):
     def get_base_elements(self):
         return [self]
 
+    def hide(self):
+        self._hide = True
+
+    def setlevel(self, level):
+        self._level = level
+
 
 class Box:
     def __init__(self, left, bottom, right, top):
+        assert(left <= right)
+        assert(bottom <= top)
         self.left = left
         self.bottom = bottom
         self.right = right
@@ -88,7 +102,8 @@ class Collection(Element, ABC):
     def draw(self, ax):
         base_elements = self.get_base_elements()
         for element in sorted(
-                base_elements, key=lambda x: x.surface(), reverse=True):
+                base_elements, key=lambda x: (x._level, x.surface()),
+                reverse=True):
             element.maybedraw(ax)
 
     def get_base_elements(self, ):
@@ -100,6 +115,11 @@ class Collection(Element, ABC):
     def hide(self):
         for el in self.elements:
             el.hide()
+
+    def setlevel(self, level):
+        self._level = level
+        for el in self.elements:
+            el.setlevel(level)
 
     def boundingbox(self):
         left = np.inf
@@ -173,8 +193,8 @@ class HalfCircle(BaseElement):
                 edgecolor="black"))
 
     def boundingbox(self):
-        return Box(self.x - self.r, self.y - self.r, self.x + self.r,
-                   self.y + self.r)
+        return Box(self.x - (self.r / 2), self.y - (self.r / 2), self.x,
+                   self.y)
 
 
 class Rect(Box, BaseElement):
@@ -236,7 +256,7 @@ class Text(BaseElement):
         self.verticalalignment = verticalalignment
 
     def draw(self, ax):
-        self.ax.text(
+        ax.text(
             x=self.x,
             y=self.y,
             s=self.s,
