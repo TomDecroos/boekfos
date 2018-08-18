@@ -1,0 +1,72 @@
+var _user$project$Shape$attributes = function (model) {
+	var _p0 = model;
+	if (_p0.ctor === 'Rectangle') {
+		var _p2 = _p0._0;
+		var _p1 = _p0._1;
+		return {
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$x(
+				_elm_lang$core$Basics$toString(_p2)),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$y(
+					_elm_lang$core$Basics$toString(_p1)),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$width(
+						_elm_lang$core$Basics$toString(_p0._2 - _p2)),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$height(
+							_elm_lang$core$Basics$toString(_p0._3 - _p1)),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		};
+	} else {
+		return {ctor: '[]'};
+	}
+};
+var _user$project$Shape$tag = function (model) {
+	var _p3 = model;
+	if (_p3.ctor === 'Rectangle') {
+		return _elm_lang$svg$Svg$rect;
+	} else {
+		return _elm_lang$svg$Svg$circle;
+	}
+};
+var _user$project$Shape$view = function (model) {
+	return A3(
+		_user$project$Shape$tag,
+		model,
+		_user$project$Shape$attributes(model),
+		{ctor: '[]'});
+};
+var _user$project$Shape$bbox = function (shape) {
+	var _p4 = shape;
+	if (_p4.ctor === 'Rectangle') {
+		return A4(_user$project$Box$Model, _p4._0, _p4._1, _p4._2, _p4._3);
+	} else {
+		var _p7 = _p4._1;
+		var _p6 = _p4._0;
+		var _p5 = _p4._2;
+		return A4(_user$project$Box$Model, _p6 - _p5, _p7 - _p5, _p6 + _p5, _p7 + _p5);
+	}
+};
+var _user$project$Shape$HalfCircle = F4(
+	function (a, b, c, d) {
+		return {ctor: 'HalfCircle', _0: a, _1: b, _2: c, _3: d};
+	});
+var _user$project$Shape$Rectangle = F4(
+	function (a, b, c, d) {
+		return {ctor: 'Rectangle', _0: a, _1: b, _2: c, _3: d};
+	});
+var _user$project$Shape$initRectangle = F4(
+	function (l, b, r, t) {
+		return A4(_user$project$Shape$Rectangle, l, b, r, t);
+	});
+var _user$project$Shape$Right = {ctor: 'Right'};
+var _user$project$Shape$Bottom = {ctor: 'Bottom'};
+var _user$project$Shape$Top = {ctor: 'Top'};
+var _user$project$Shape$Left = {ctor: 'Left'};

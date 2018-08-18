@@ -1,0 +1,48 @@
+var _user$project$Rectangle$tag = _elm_lang$svg$Svg$rect;
+var _user$project$Rectangle$height = function (model) {
+	return model.top - model.bottom;
+};
+var _user$project$Rectangle$width = function (model) {
+	return model.right - model.left;
+};
+var _user$project$Rectangle$attributes = function (model) {
+	return {
+		ctor: '::',
+		_0: _elm_lang$svg$Svg_Attributes$x(
+			_elm_lang$core$Basics$toString(
+				function (_) {
+					return _.left;
+				}(model))),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$y(
+				_elm_lang$core$Basics$toString(
+					function (_) {
+						return _.bottom;
+					}(model))),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$width(
+					_elm_lang$core$Basics$toString(
+						_user$project$Rectangle$width(model))),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$height(
+						_elm_lang$core$Basics$toString(
+							_user$project$Rectangle$height(model))),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	};
+};
+var _user$project$Rectangle$view = function (model) {
+	return A2(
+		_user$project$Rectangle$tag,
+		_user$project$Rectangle$attributes(model),
+		{ctor: '[]'});
+};
+var _user$project$Rectangle$Model = F4(
+	function (a, b, c, d) {
+		return {left: a, bottom: b, right: c, top: d};
+	});

@@ -1,0 +1,136 @@
+var _user$project$DrawableCollection$viewboxstring = function (box) {
+	var coords = {
+		ctor: '::',
+		_0: box.left,
+		_1: {
+			ctor: '::',
+			_0: box.bottom,
+			_1: {
+				ctor: '::',
+				_0: box.right,
+				_1: {
+					ctor: '::',
+					_0: box.top,
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	};
+	return A2(
+		_elm_lang$core$String$join,
+		' ',
+		A2(_elm_lang$core$List$map, _elm_lang$core$Basics$toString, coords));
+};
+var _user$project$DrawableCollection$orderbySize = function (model) {
+	var surface = function (object) {
+		return _user$project$Box$surface(
+			_user$project$DrawableObject$bbox(object));
+	};
+	return _elm_lang$core$List$reverse(
+		A2(_elm_lang$core$List$sortBy, surface, model));
+};
+var _user$project$DrawableCollection$baseObjects = function (model) {
+	var _p0 = model;
+	if (_p0.ctor === 'DrawableObject') {
+		return {
+			ctor: '::',
+			_0: _p0._0,
+			_1: {ctor: '[]'}
+		};
+	} else {
+		return A2(_elm_lang$core$List$concatMap, _user$project$DrawableCollection$baseObjects, _p0._0);
+	}
+};
+var _user$project$DrawableCollection$bbox = function (model) {
+	var _p1 = model;
+	if (_p1.ctor === 'DrawableObject') {
+		return _user$project$DrawableObject$bbox(_p1._0);
+	} else {
+		var boxes = A2(_elm_lang$core$List$map, _user$project$DrawableCollection$bbox, _p1._0);
+		var left = A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			_elm_lang$core$List$minimum(
+				A2(
+					_elm_lang$core$List$map,
+					function (_) {
+						return _.left;
+					},
+					boxes)));
+		var right = A2(
+			_elm_lang$core$Maybe$withDefault,
+			1,
+			_elm_lang$core$List$maximum(
+				A2(
+					_elm_lang$core$List$map,
+					function (_) {
+						return _.right;
+					},
+					boxes)));
+		var top = A2(
+			_elm_lang$core$Maybe$withDefault,
+			1,
+			_elm_lang$core$List$maximum(
+				A2(
+					_elm_lang$core$List$map,
+					function (_) {
+						return _.top;
+					},
+					boxes)));
+		var bottom = A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			_elm_lang$core$List$minimum(
+				A2(
+					_elm_lang$core$List$map,
+					function (_) {
+						return _.bottom;
+					},
+					boxes)));
+		return A4(_user$project$Box$Model, left, bottom, right, top);
+	}
+};
+var _user$project$DrawableCollection$view = function (model) {
+	return A2(
+		_elm_lang$svg$Svg$svg,
+		{
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$width('100%'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$height('100%'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$viewBox(
+						_user$project$DrawableCollection$viewboxstring(
+							_user$project$DrawableCollection$bbox(model))),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$transform('scale(1,-1)'),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		A2(
+			_elm_lang$core$List$filterMap,
+			_user$project$DrawableObject$view,
+			_user$project$DrawableCollection$orderbySize(
+				_user$project$DrawableCollection$baseObjects(model))));
+};
+var _user$project$DrawableCollection$DrawableCollection = function (a) {
+	return {ctor: 'DrawableCollection', _0: a};
+};
+var _user$project$DrawableCollection$DrawableObject = function (a) {
+	return {ctor: 'DrawableObject', _0: a};
+};
+var _user$project$DrawableCollection$garden = F4(
+	function (l, b, r, t) {
+		return _user$project$DrawableCollection$DrawableObject(
+			A4(_user$project$DrawableObject$garden, l, b, r, t));
+	});
+var _user$project$DrawableCollection$terrace = F4(
+	function (l, b, r, t) {
+		return _user$project$DrawableCollection$DrawableObject(
+			A4(_user$project$DrawableObject$terrace, l, b, r, t));
+	});

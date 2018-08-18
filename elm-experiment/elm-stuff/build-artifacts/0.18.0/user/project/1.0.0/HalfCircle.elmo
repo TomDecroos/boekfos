@@ -1,0 +1,5 @@
+var _user$project$HalfCircle$attributes = function (model) {
+	return {ctor: '[]'};
+};
+var _user$project$HalfCircle$tag = _elm_lang$svg$Svg$circle;
+var _user$project$HalfCircle$Model = {};

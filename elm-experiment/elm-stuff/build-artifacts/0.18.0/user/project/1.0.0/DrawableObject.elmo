@@ -1,0 +1,51 @@
+var _user$project$DrawableObject$attributes = function (model) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_user$project$Shape$attributes(model.shape),
+		{
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$fill(model.color),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$DrawableObject$view = function (model) {
+	var view2 = function (model) {
+		return A3(
+			_user$project$Shape$tag,
+			model.shape,
+			_user$project$DrawableObject$attributes(model),
+			{ctor: '[]'});
+	};
+	return (!model.hidden) ? _elm_lang$core$Maybe$Just(
+		view2(model)) : _elm_lang$core$Maybe$Nothing;
+};
+var _user$project$DrawableObject$bbox = function (model) {
+	return _user$project$Shape$bbox(model.shape);
+};
+var _user$project$DrawableObject$initRectangle = F5(
+	function (color, l, b, r, t) {
+		return {
+			shape: A4(_user$project$Shape$initRectangle, l, b, r, t),
+			color: color,
+			hidden: false
+		};
+	});
+var _user$project$DrawableObject$garden = _user$project$DrawableObject$initRectangle(_user$project$MyColor$lightgreen);
+var _user$project$DrawableObject$terrace = _user$project$DrawableObject$initRectangle(_user$project$MyColor$lightgrey);
+var _user$project$DrawableObject$wall = F6(
+	function (thickness, color, o, a, b1, b2) {
+		var _p0 = o;
+		if (_p0.ctor === 'Horizontal') {
+			return A5(_user$project$DrawableObject$initRectangle, color, b1, a - thickness, b2, a + thickness);
+		} else {
+			return A5(_user$project$DrawableObject$initRectangle, color, a - thickness, b1, a + thickness, b2);
+		}
+	});
+var _user$project$DrawableObject$outerwall = A2(_user$project$DrawableObject$wall, 0.2, _user$project$MyColor$darkgrey);
+var _user$project$DrawableObject$innerwall = A2(_user$project$DrawableObject$wall, 5.0e-2, _user$project$MyColor$darkgrey);
+var _user$project$DrawableObject$Model = F3(
+	function (a, b, c) {
+		return {shape: a, color: b, hidden: c};
+	});
+var _user$project$DrawableObject$Vertical = {ctor: 'Vertical'};
+var _user$project$DrawableObject$Horizontal = {ctor: 'Horizontal'};

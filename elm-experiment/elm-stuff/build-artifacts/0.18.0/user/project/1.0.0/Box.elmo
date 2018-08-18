@@ -1,0 +1,13 @@
+var _user$project$Box$height = function (model) {
+	return model.top - model.bottom;
+};
+var _user$project$Box$width = function (model) {
+	return model.right - model.left;
+};
+var _user$project$Box$surface = function (model) {
+	return _user$project$Box$width(model) * _user$project$Box$height(model);
+};
+var _user$project$Box$Model = F4(
+	function (a, b, c, d) {
+		return {left: a, bottom: b, right: c, top: d};
+	});
